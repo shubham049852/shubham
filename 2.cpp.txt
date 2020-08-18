@@ -259,7 +259,7 @@ delete p;
 
 void sll::search()
 {
-int n;
+int n,flag=0;
 cout<<"Enter element to be searched \n";
 cin>>n;
 temp=new node;
@@ -269,10 +269,14 @@ while(temp->ptr!=NULL)
 if(temp->data==n)
 {
 cout<<"Element found\n";
+flag++;
 }
 temp=temp->ptr;
 }
+if(flag!=1)
+{
 cout<<"Element not found\n";
+}
 }
 
 
