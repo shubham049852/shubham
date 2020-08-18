@@ -1,0 +1,317 @@
+#include<iostream.h>
+#include<conio.h>
+#include<process.h>
+#define NULL 0
+class sll
+{
+public:
+       struct node
+    {
+int data;
+struct node *ptr;
+    }*temp,*head,*tail,*p,*prev;
+
+
+  sll()
+{
+   head=NULL;
+   }
+
+
+ void create();
+ void display();
+ void insertbeg();
+ void insertend();
+ void insertbtw();
+ void deletebeg();
+ void deleteend();
+ void deletebtw();
+ void search();
+ void reverse();
+ void counting();
+ ~sll()
+ {
+  for(node*p;head!=0; )
+   { 
+     p=head->ptr;
+     delete head;
+   } head=p;
+ } 
+ 
+ }t;
+
+
+ void main()
+ {
+ int ch1;
+ char ch2;
+
+ clrscr();
+      do
+  {
+     cout<<"1 CREATE\n 2 DISPLAY\n 3 INSERT BEGIN\n 4 INSERT END\n 5 INSERT BTW\n 6 DELETE BEGIN\n 7 DELETE END\n 8 DELETE BTW\n 9 SEARCHING\n 10 REVERSE\n 11 COUNTING\n 12 EXIT\n";
+     cout<<"Enter your choice\n";
+     cin>>ch1;
+ switch(ch1)
+ {
+  case 1: t.create();
+  break;
+  case 2: t.display();
+  break;
+  case 3: t.insertbeg();
+  break;
+  case 4: t.insertend();
+  break;
+  case 5: t.insertbtw();
+  break;
+  case 6: t.deletebeg();
+  break;
+  case 7: t.deleteend();
+  break;
+  case 8: t.deletebtw();
+  break;
+  case 9: t.search();
+  break;
+  case 10: t.reverse();
+  break;
+  case 11: t.counting();           
+  break;
+  case 12: exit(0);
+  }
+  cout<<" You want enter more choice \n";
+  cin>>ch2;
+  }while(ch2=='y');
+
+ getch();
+ }
+
+
+
+ void sll::create()
+ {
+ char ch;
+ int n;
+ do
+ {
+ p=new node;
+ p->ptr=NULL;
+ cout<<"enter data u want to enter  \n";
+ cin>>n;
+ if(head==NULL)
+ {
+ head=temp=p;
+ head->data=n;
+ tail=head;
+ }
+
+ else
+ {
+ temp=new node;
+ temp->data=n;
+ temp->ptr=NULL;
+ tail->ptr=temp;
+ tail=temp;
+ }
+
+ cout<<" You want to enter new node\n";
+ cin>>ch;
+ }
+ while(ch=='y');
+
+}
+
+
+
+
+void sll::display()
+{
+    cout<<"\n Linked list is \n";
+    temp=head;
+    while(temp!=NULL)
+ {
+     cout<<temp->data<<"->";
+     temp=temp->ptr;
+
+   }
+
+   cout<<"NULL";
+   }
+
+
+
+
+void sll::insertbeg()
+{
+  int n;
+  temp=new node;
+  cout<<" Enter data of node \n";
+  cin>>n;
+  temp->data=n;
+  temp->ptr=head;
+  head=temp;
+  }
+
+
+
+
+void sll::insertend()
+{
+int n;
+temp=new node;
+cout<<"Enter data of node \n";
+cin>>n;
+temp->data=n;
+tail->ptr=temp;
+tail=temp;
+tail->ptr=NULL;
+}
+
+
+
+
+
+void sll::insertbtw()
+{
+int d,n,count=1;
+p=new node;
+cout<<"Enter data of node \n";
+cin>>d;
+cout<<" At Which position you want to insert node \n";
+cin>>n;
+p->data=d;
+temp=new node;
+temp=head;
+while(count<(n-1))
+{
+temp=temp->ptr;
+count++;
+}
+p->ptr=temp->ptr;
+temp->ptr=p;
+  }
+
+
+
+
+ void sll::deletebeg()
+ {
+ temp=new node;
+ temp=head;
+ head=head->ptr;
+ del temp;
+ }
+
+ 
+
+
+
+
+
+void sll::deleteend()
+ {
+ temp=new node;
+ p=new node;
+ if(head->ptr==NULL)
+ {
+   del head;
+   }
+else
+{
+temp=head;
+while(temp->ptr!=NULL)
+{
+ p=temp; 
+temp=temp->ptr;
+}
+
+p->ptr=NULL;
+del temp;
+}
+}
+
+
+
+
+
+
+void sll::deletebtw()
+{
+int n,count=1;
+temp=new node;
+p=new node;
+temp=head;
+cout<<"Which node you want to delete\n";
+cin>>n;
+while(count<n-1)
+{
+temp=temp->ptr;
+count++;
+}
+p=temp->ptr;
+temp->ptr=p->ptr;
+delete p;
+}
+
+
+
+
+
+
+void sll::search()
+{
+int n;
+cout<<"Enter element to be searched \n";
+cin>>n;
+temp=new node;
+temp=head;
+while(temp->ptr!=NULL)
+{
+if(temp->data==n)
+{
+cout<<"Element found\n";
+}
+temp=temp->ptr;
+}
+cout<<"Element not found\n";
+}
+
+
+
+
+
+
+
+void sll::reverse()
+{
+temp=new node;
+p=new node;
+prev=new node;
+prev=NULL;
+temp=head;
+while(temp!=NULL)
+{
+p=temp->ptr;
+temp->ptr=prev;
+prev=temp;
+temp=p;
+}
+head=prev;
+}
+
+
+
+
+
+
+void sll::counting()
+{
+int count=1;
+temp=new node;
+temp=head;
+while(temp->!ptr=NULL)
+{
+temp=temp->ptr;
+count++;
+}
+cout<<"Total no. of nodes in the list are : "<<count;
+} 
