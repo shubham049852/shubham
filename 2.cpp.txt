@@ -312,7 +312,7 @@ void sll::counting()
 int count=1;
 temp=new node;
 temp=head;
-while(temp->!ptr=NULL)
+while(temp->ptr!=NULL)
 {
 temp=temp->ptr;
 count++;
