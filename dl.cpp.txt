@@ -1,0 +1,306 @@
+#include<iostream.h>
+#include<conio.h>
+#include<process.h>
+#define NULL 0
+class dl
+{
+public:
+       struct node
+    {
+int data;
+struct node *next;
+struct node *prev;
+    }*temp,*head,*tail,*p;
+
+  dl()
+{
+   head->next=NULL;
+   head->prev=NULL;
+   }
+ void create();
+ void display();
+ void insertbeg();
+ void insertend();
+ void insertbtw();
+ void deletebeg();
+ void deleteend();
+ void deletebtw();
+ void search();
+ void reverse();
+ void counting();
+ }u;
+
+ void main()
+ {
+ int ch1;
+ char ch2;
+
+ clrscr();
+      do
+  {
+     cout<<"1 CREATE\n 2 DISPLAY\n 3 INSERT BEG\n 4 INSERT END\n 5 INSERT BTW\n 6 DELETE BEGIN\n 7 DELETE END\n 8 DELETE BTW\n 9 SEARCH\n 10 REVERSE\n 11 COUNTING 12 EXIT\n";
+     cout<<"Enter your choice\n";
+     cin>>ch1;
+ switch(ch1)
+ {
+  case 1: u.create();
+  break;
+  case 2: u.display();
+  break;
+  case 3: u.insertbeg();
+  break;
+  case 4: u.insertend();
+  break;
+  case 5: u.insertbtw();
+  break;
+  case 6: u.deletebeg();
+  break;
+  case 7: u.deletend();
+  break;
+  case 8: u.deletebtw();
+  break;
+  case 9: u.search();
+  break;
+  case 10: u.reverse();
+  break;
+  case 11: u.counting();
+  break;
+  case 12: exit(0);
+  }
+  cout<<" You want to enter more\n";
+  cin>>ch2;
+  }while(ch2=='y');
+
+ getch();
+ }
+
+
+ void dl::create()
+ {
+ char ch='y';
+ int n;
+ do
+ {
+temp=new node;
+ temp->next=NULL;
+ cout<<"Enter data you want to enter  \n";
+ cin>>n;
+ if(head==NULL)
+ {
+ head=temp;
+ head->data=n;
+ tail=head;
+ }
+
+ else
+ {
+ temp=new node;
+ temp->data=n;
+ temp->next=NULL;
+ tail->next=temp;
+ temp->prev=tail;
+ tail=temp;
+ }
+
+ cout<<" Would you want to enter new node\n";
+ cin>>ch;
+ }
+ while(ch=='y');
+
+}
+
+
+
+void dl:: display()
+{
+    cout<<"\nLinked list is \n";
+    temp=head;
+    while(temp!=NULL)
+ {
+     cout<<temp->data<<"<=>";
+     temp=temp->next;
+
+   }
+
+   cout<<"NULL";
+   }
+
+
+
+ void dl::insertbeg()
+{
+  int n;
+  temp=new node;
+  cout<<" Enter data of node\n";
+  cin>>n;
+  temp->data=n;
+  temp->prev=NULL;
+  temp->next=head;
+  head->prev=temp;
+  head=temp;
+  }
+
+
+void dl::insertend()
+{
+int n;
+temp=new node;
+cout<<"Enter data you want to enter\n";
+cin>>n;
+temp->data=n;
+temp->next=NULL;
+temp->prev=tail;
+tail->next=temp;
+tail=temp;
+}
+
+
+
+void dl::insertbtw()
+{
+int d,n,count=1;
+temp=new node;
+p=new node;
+cout<<"Enter data of node \n";
+cin>>d;
+cout<<" At which position you want to insert node \n";
+cin>>n;
+p->data=d;
+temp=head;
+while(count<(n-1))
+{
+temp=temp->next;
+count++;
+}
+p->next=temp->next;
+temp->next->prev=p;
+temp->next=p;
+p->prev=temp;
+  }
+
+
+
+
+ void dl::deletebeg()
+ {
+ temp=new node;
+ temp=head;
+ head=head->next;
+ temp->next=NULL;
+ head->prev=NULL;
+ delete temp;
+ }
+
+
+
+ void dl::deleteend()
+ {
+ temp=new node;
+ if(head->next==NULL)
+ {
+   delete head;
+   }
+else
+{
+temp=tail;
+tail=tail->prev;
+temp->prev=NULL;
+tail->next=NULL;
+delete temp;
+}
+}
+
+
+
+
+void dl::deletebtw()
+{
+int n,count=1;
+temp=new node;
+p=new node;
+temp=head;
+cout<<"\nWhich node you want to delete \n";
+cin>>n;
+while(count<(n-1))
+{
+temp=temp->next;
+count++;
+}
+p=temp->next;
+temp->next=temp->next->next;
+temp->next->prev=temp;
+delete p;
+}
+
+
+
+
+void dl::search()
+{
+int n,flag=0;
+cout<<"Enter element to be searched \n";
+cin>>n;
+temp=new node;
+temp=head;
+while(temp!=NULL)
+{
+if(temp->data==n)
+{
+cout<<"element found\n";
+flag++;
+}
+temp=temp->next;
+}
+if(flag==0)
+{
+cout<<"Element not found\n";
+}
+}
+
+
+
+void dl::reverse()
+{
+temp=new node;
+p=new node;
+p=head;
+if(p==NULL)
+{
+cout<<"\nList is empty\n";
+}
+else if(p->next==NULL)
+{
+cout<<"Only 1 node is present in the list \n";
+}
+else
+{
+while(p!=NULL)
+{
+temp=p->prev;
+p->prev=p->next;
+p->next=temp;
+p=p->prev;
+}
+if(temp!=NULL)
+{
+temp=temp->prev;
+}
+}
+head=temp;
+}
+
+
+
+
+void dl::counting()
+{
+int count=1;
+temp=new node;
+temp=head;
+while(temp->next!=NULL)
+{
+temp=temp->next;
+count++;
+}
+cout<<"Total no. of nodes are --\t"<<count;
+}
