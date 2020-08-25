@@ -1,0 +1,368 @@
+#include<iostream.h>
+#include<conio.h>
+#include<process.h>
+#include<stdlib.h>
+#define NULL 0
+
+using namespace std;
+
+class cdll
+{
+struct node
+{
+int data;
+struct node *prev, *next;
+};
+struct node *temp, *p, *tail;
+
+public:
+cdll()
+{
+tail = NULL;
+}
+~cdll()
+{
+if (!is_empty())
+{
+cout << "\nDeallocating memory...\n";
+p = tail->next;
+tail->next = NULL;
+while (p != NULL)
+{
+temp = p->next;
+delete p;
+p = temp;
+}
+}
+}
+void create();
+bool is_empty();
+void count();
+void search();
+void insertend();
+void insertbegin();
+void insertbtw();
+void deleteend();
+void deletebegin();
+void deletebtw();
+void display();
+};
+
+
+
+bool cdll::is_empty()
+{
+if (tail == NULL)
+{
+return true;
+}
+else 
+return false;
+}
+
+
+void cdll::create()
+{
+char ch = 'y';
+do
+{
+insertend();
+cout << "Want to enter more nodes ? (y/n) : ";
+cin >> ch;
+}
+ while (ch == 'y');
+}
+
+
+
+void cdll::display()
+{
+cout << "\n\n\t";
+if (is_empty())
+cout << "Linked List is empty.";
+else
+{
+p = tail;
+do
+{
+p = p->next;
+cout << " «-» " << p->data;
+}
+ while (p != tail);
+ cout << " «-»..";
+ }
+ cout << "\n";
+}
+
+
+
+
+void cdll::insertend()
+{
+temp = new node;
+cout << "\nEnter  node data : ";
+cin >> temp->data;
+if (is_empty())
+{
+tail = temp;
+tail->prev = tail;
+tail->next = tail;
+}
+else
+{
+temp->next = tail->next;
+temp->prev = tail;
+tail->next = temp;
+tail = temp;
+}
+cout << "Insert done" << endl;
+}
+
+
+
+
+
+void cdll::insertbegin()
+{
+temp = new node;
+cout << "\nEnter  node data : ";
+cin >> temp->data;
+if (is_empty())
+{
+tail = temp;
+tail->prev = tail;
+tail->next = tail;
+}
+else
+{
+temp->next = tail->next;
+temp->prev = tail;
+tail->next->prev = temp;
+tail->next = temp;
+}
+cout << "Insert done" << endl;
+}
+
+
+
+
+void cdll::insertbtw()
+{
+if (!is_empty())
+{
+temp = new node;
+int l;
+cout << "\nEnter the location for new node : ";
+cin >> l;
+if (loc == 1)
+insertbegin();
+else
+{
+p = tail->next;
+for (int i = 1; i < l - 1; i++)
+{
+p = p->next;
+}
+if (p == tail)
+insertend();
+else
+{
+cout << "Enter  node data : ";
+cin >> temp->data;
+temp->next = p->next;
+temp->prev = p;
+p->next->prev = temp;
+p->next = temp;
+cout << "Insert done" << endl;
+}
+}
+}
+}
+
+
+
+
+
+void cdll::deleteend()
+{
+if (!is_empty())
+{
+temp = tail->prev;
+if (temp == tail)
+{
+delete temp;
+tail=NULL;
+}
+else
+{
+temp->next = tail->next;
+tail->next->prev = temp;
+delete tail;
+tail = temp;
+}
+cout << "\nDeleted node from end" << endl;
+}
+}
+
+
+
+
+
+void cdll::deletebegin()
+{
+if (!is_empty())
+{
+temp = tail->next;
+if (tail->next == tail)
+{
+delete temp;
+tail = NULL;
+}
+else
+{
+temp->next->prev = tail;
+tail->next = temp->next;
+delete temp;
+}
+cout << "\nDeleted  node from beginning" << endl;
+}
+}
+
+
+
+
+
+void cdll::deletebtw()
+{
+if (!is_empty())
+{
+int l;
+cout << "\nEnter the location of node to delete : ";
+cin >> l;
+if (l == 1)
+deletebegin();
+else
+{
+p = tail->next;
+for (int i = 1; i < l - 1; i++)
+{
+p = p->next;
+}
+temp = p->next;
+if (temp == tail)
+deleteend();
+else
+{
+p->next = temp->next;
+temp->next->prev = p;
+delete temp;
+cout << "\nDeleted from location : " << l  << endl;
+}
+}
+}
+}
+
+
+
+
+
+void cdll::count()
+{
+if (!is_empty())
+{
+int count = 0;
+p = tail;
+do
+{
+p = p->next;
+++count;
+}
+ while (p != tail);
+cout << "\nThere are " << count << " nodes in the list. \n";
+}
+else
+display();
+}
+
+
+
+
+void cdll::search()
+{
+if (!is_empty())
+{
+int n, count = 0, flag = 0;
+cout << "\nEnter element to be searched : ";
+cin >> n;
+p = tail;
+do
+{
+p = p->next;
+++count;
+if (p->data == n)
+{
+flag = 1;
+break;
+}
+}
+ while (p != tail);
+ if (flag == 1)
+ cout << "Element found at location  " << count << "  in the list.\n" ;
+ else
+ cout << "Element not found in the list.";
+ }
+ else
+ display();
+}
+
+
+
+
+
+void main()
+{
+int choice;
+char ch;
+cdll u;
+do
+{
+cout << "\n1. Create\n2. Insert at Begin\n3. Insert at End\n4. Insert at Btw\n5. Delete at Begin\n6. Delete at End\n7. Delete at Btw\n8. Count the nodes\n9. Search\n10. Display\n11. Exit" << endl;
+cout << "Enter your choice : ";
+cin >> choice;
+switch (choice)
+{
+case 1: u.create();
+             u.display();
+             break;
+case 2: u.insertbegin();
+             u.display();
+             break;
+case 3: u.insertend();
+             u.display();
+             break;
+case 4: u.insertbtw();
+             u.display();
+             break;
+case 5: u.deletebegin();
+             u.display();
+             break;
+case 6: u.deleteend();
+             u.display();
+             break;
+case 7: u.deletebtw();
+             u.display();
+             break;
+case 8: u.count();
+             break;
+case 9: u.search();
+             break;
+case 10: u.display();
+               break;
+case 11: exit(0);
+}
+cout << "\nWant to enter more? (y/n) ";
+cin >> ch;
+}
+ while (ch == 'y');
+}
+
