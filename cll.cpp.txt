@@ -1,0 +1,326 @@
+#include<iostream.h>
+#include<conio.h>
+#include<process.h>
+#define NULL 0
+class cl
+{
+public:
+       struct node
+    {
+int data;
+struct node *next;
+
+    }*temp,*head,*tail,*p,*pre;
+
+  cl()
+{
+   head->next=NULL;
+
+   }
+ void create();
+ void display();
+ void insertbeg();
+ void insertend();
+ void insertbtw();
+ void deletebeg();
+ void deleteend();
+ void deletebtw();
+ void search();
+ void reverse();
+ void counting();
+ }c;
+
+ void main()
+ {
+ int ch1;
+ char ch2;
+
+ clrscr();
+      do
+  {
+     cout<<"1 CREATE\n 2 DISPLAY\n 3 INSERT BEGIN\n 4 INSERT END\n 5 INSERT BTW\n 6 DELETE BEGIN\n 7 DELETE END\n 8 DELETE BTW\n 9 SEARCH\n 10 REVERSE\n 11 COUNTING 12 EXIT\n";
+     cout<<"Enter your choice\n";
+     cin>>ch1;
+ switch(ch1)
+ {
+  case 1: c.create();
+  break;
+  case 2: c.display();
+  break;
+  case 3: c.insertbeg();
+  break;
+  case 4: c.insertend();
+  break;
+  case 5: c.insertbtw();
+  break;
+  case 6: c.deletebeg();
+  break;
+  case 7: c.deleteend();
+  break;
+  case 8: c.deletebtw();
+  break;
+  case 9: c.search();
+  break;
+  case 10: c.reverse();
+  break;
+  case 11: c.counting();
+  break;
+  case 12: exit(0);
+  }
+  cout<<" You want to enter more\n";
+  cin>>ch2;
+  }while(ch2=='y');
+
+ getch();
+ }
+ void cl::create()
+ {
+ char ch='y';
+ int n;
+ do
+ {
+temp=new node;
+ temp->next=null;
+ cout<<"Enter data you want to enter  \n";
+ cin>>n;
+ if(head==NULL)
+ {
+ head=temp;
+ head->data=n;
+ tail=head;
+ }
+
+ else
+ {
+
+ temp->data=n;
+ tail->next=temp;
+ tail=temp;
+ tail->next=head;
+ }
+
+ cout<<" You want to enter new node\n";
+ cin>>ch;
+ }
+ while(ch=='y');
+
+}
+
+
+
+void cl::display()
+{
+    cout<<"\nLinked list is \n";
+    temp=head;
+    while(temp->next!=head)
+ {
+     cout<<temp->data<<"->";
+     temp=temp->next;
+
+   }
+
+   cout<<temp->data;
+   }
+
+
+
+
+ void cl::insertbeg()
+{
+  int n;
+  temp=new node;
+  cout<<" Enter data you want to enter  \n";
+  cin>>n;
+  temp->data=n;
+  if(tail==NULL)
+  {
+  tail=temp;
+  tail->next=temp;
+  }
+  else
+  {
+  temp->next=tail->next;
+  tail->next=temp;
+  head=temp;
+  }
+  }
+
+
+
+void cl::insertend()
+{
+int n;
+temp=new node;
+cout<<"Enter data you want to enter\n";
+cin>>n;
+temp->data=n;
+if(tail==NULL)
+{
+tail=temp;
+tail->next=temp;
+}
+else
+{
+temp->next=tail->next;
+tail->next=temp;
+tail=temp;
+}
+
+
+
+
+}
+void cl::insertbtw()
+{
+int d,n,count=1;
+temp=new node;
+p=new node;
+cout<<"Enter data you want to enter\n";
+cin>>d;
+cout<<" At which position you want to insert\n";
+cin>>n;
+p->data=d;
+temp=tail->next;
+while(count<(n-1))
+{
+ temp=temp->next;
+ count++;
+ }
+p->next=temp->next;
+temp->next=p;
+  }
+
+
+
+ void cl::deletebeg()
+ {
+ temp=new node;
+ temp=tail->next;
+ if(tail==NULL)
+ {
+ cout<<"list is empty\n";
+ }
+ else if(temp->next==temp)
+ {
+ tail=NULL;
+ delete temp;
+ }
+ else
+ {
+ tail->next=temp->next;
+ head=temp->next;
+ delete temp;
+ }
+ }
+
+
+
+ void cl::deleteend()
+ {
+ p=new node;
+ temp=new node;
+ temp=tail->next;
+ while(temp->next!=tail->next)
+ {
+ p=temp;
+ temp=temp->next;
+ }
+ p->next=tail->next;
+ tail=p;
+ delete temp;
+}
+
+
+
+
+void cl::deletebtw()
+{
+int n,count=1;
+temp=new node;
+p=new node;
+cout<<"Which node you want to delete\n";
+cin>>n;
+temp=tail->next;
+while(count<(n-1))
+{
+temp=temp->next;
+count++;
+}
+p=temp->next;
+temp->next=p->next;
+delete p;
+}
+
+
+
+void cl::search()
+{
+int n,flag=0;
+cout<<"Enter element to be search\n";
+cin>>n;
+temp=new node;
+temp=tail->next;
+while(temp!=tail->next)
+{
+if(temp->data==n)
+{
+cout<<"element found\n";
+flag++;
+}
+temp=temp->next;
+}
+if(tail->data==n)
+{  cout<<"element found\n";
+  flag++;
+}
+if(flag==0)
+{
+cout<<"Element not found\n";
+}
+}
+
+
+void cl::reverse()
+{
+temp=new node;
+pre=new node;
+p=new node;
+temp=tail->next;
+pre=temp->next;
+if(tail==NULL)
+{
+cout<<"empty linked list\n";
+}
+else if(temp->next==temp)
+{
+cout<<"one node is present\n";
+}
+else
+{
+while(temp!=tail)
+{
+p=temp;
+temp=pre;
+pre=temp->next;
+temp->next=p;
+}
+pre->next=tail;
+tail=pre;
+head=temp;
+}}
+
+
+
+
+void cl::counting()
+{
+int count=1;
+temp=new node;
+temp=tail->next;
+while(temp->next!=tail->next)
+{
+temp=temp->next;
+count++;
+}
+cout<<"Total no. of nodes are :"<<count;
+}
