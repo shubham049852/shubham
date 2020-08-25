@@ -1,0 +1,162 @@
+
+#include<iostream.h>
+#include<conio.h>
+#include<stdio.h>
+#include<math.h>
+class poll
+{
+public:
+class node
+{
+public:
+int coef;
+int pow;
+node *next;
+}*first,*last,*temp,*temp1;
+
+void insert(int,int);
+void display();
+void sum(poll);
+poll()
+{
+first=last=NULL;
+}
+};
+
+
+
+void poll::display()
+{
+temp=first;
+while(temp!=NULL)
+{
+
+if(temp->coef>0)
+{
+if(temp->coef==0)
+{
+temp=temp->next;
+}
+
+if(temp->pow==0)
+{
+cout<<'+'<<temp->coe;
+}
+else if(temp->pow==1)
+{
+cout<<'+'<<temp->coef<<"x";
+}
+else
+{
+cout<<'+'<<temp->coef<<"x^"<<temp->pow;
+}
+
+}
+else
+{
+if(temp->coef==0)
+{
+temp=temp->next;
+}
+if(temp->pow==0)
+{
+cout<<temp->coef;
+}
+else if(temp->pow==1)
+{
+cout<<temp->coef<<"x";
+}
+else
+{
+cout<<temp->coef<<"x^"<<temp->pow;
+}
+}
+temp=temp->next;
+}
+}
+
+
+
+
+void poll::sum(poly ob)
+{
+int flag;
+ob.temp1=ob.first;
+while(ob.temp1)
+{
+temp1=first;
+while(temp1)
+{
+if(temp1->pow == ob.temp1->pow)
+{
+temp1->coef = temp1->coef+ob.temp1->coef;
+flag=1;
+break;
+}
+else
+{
+flag=0;
+}
+temp1=temp1->next;
+}
+if(flag==0)
+{
+insert(ob.temp1->pow,ob.temp1->coef);
+}
+ob.temp1=ob.temp1->next;
+}
+cout<<"\n Sum  : ";
+display();
+}
+
+void poll::insert(int c,int d)
+{
+temp=new node;
+temp->next=NULL;
+temp->pow=c;
+temp->coef=d;
+if(first==NULL)
+first=last=temp;
+else
+{
+last->next=temp;
+last=temp;
+}
+}
+
+int main()
+{
+clrscr();
+poll oj1,oj2;
+int a,b;
+char ch;
+cout<<"\n First Polynomial is  ";
+do
+{
+cout<<"\n Enter the power : ";
+cin>>a;
+cout<<"\n Enter the coefficient : ";
+cin>>b;
+oj1.insert(a,b);
+cout<<"\n Want to add more polynomial : ";
+cin>>ch;
+}
+while(ch=='y' || ch=='Y');
+oj1.display();
+cout<<"\n\n\n\n  Second Polynomial is  ";
+do
+{
+cout<<"\n Enter the power : ";
+cin>>a;
+cout<<"\n Enter the coefficient : ";
+cin>>b;
+s2.insert(a,b);
+cout<<"\n Want to add more (y/n) : ";
+cin>>ch;
+}
+while(ch=='y' || ch=='Y');
+oj2.display();
+cout<<"\n\n";
+oj1.sum(oj2);
+return 0;
+}
