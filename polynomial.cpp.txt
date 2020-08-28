@@ -158,5 +158,6 @@ while(ch=='y' || ch=='Y');
 oj2.display();
 cout<<"\n\n";
 oj1.sum(oj2);
+getch();
 return 0;
 }
